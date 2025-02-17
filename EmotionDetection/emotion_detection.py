@@ -18,4 +18,20 @@ def emotion_detector(text_to_analyse):
     # Parsing the JSON response from the API
     formatted_response = json.loads(response.text)
 
-    retuformatted_response['emotionPredictions'][0]['emotion']
+    emotions = formatted_response['emotionPredictions'][0]['emotion']
+
+    emotion_values = list(emotions.values())
+
+    emotion_values.sort()
+    
+    max_score = emotion_values[len(emotion_values) - 1]
+
+    for key in emotions.keys():
+        if emotions[key] == max_score:
+            emotions["dominant_emotion"] = key
+            break
+        else:
+            continue
+        
+    return emotions
+
